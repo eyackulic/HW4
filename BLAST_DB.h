@@ -12,6 +12,8 @@
 class BLAST_DB {
 private:
     FASTAreadset_LL query_stack;
+    int array_size = 10;
+    int **score_matrix=nullptr;
 public:
     char * query;
     FASTAreadset_HT * hashtable;
