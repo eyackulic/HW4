@@ -4,6 +4,9 @@
 
 #ifndef HW4_BLAST_DB_H
 #define HW4_BLAST_DB_H
+#include <iostream>
+#include <fstream>
+#include <stdlib.h>
 
 
 #include "FASTAreadset_HT.h"
@@ -16,12 +19,14 @@ public:
     char * query;
     FASTAreadset_HT * hashtable;
     BLAST_DB();
+    //custom constructor
     BLAST_DB(const char *filename, int m, int seq_size);
+
     ~BLAST_DB();
     void splitQuery(int seq_size, int query_size, const char * subset);
     int NW(const char * seq1,const char * seq2, int array_size);
     void print_score_matrix(int array_size, int** score_matrix);
-    int ScoreFinder(int i, int j,const char * seq1, const char * seq2);
+    int ScoreFinder(int i, int j,const char * seq1, const char * seq2, int array_size);
 
 
         };
