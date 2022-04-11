@@ -12,7 +12,7 @@ BLAST_DB::BLAST_DB(const char *filename, int m, int seq_size) {
 }
 BLAST_DB::~BLAST_DB(){
     //destructor -- most items in this hw were destroyed onsite
-    cout << "destructor ran" << endl;
+    cout << "destructor ran blastDB" << endl;
 }
 
 void BLAST_DB::splitQuery(int seq_size, int query_size, const char * subset) {
@@ -50,8 +50,6 @@ void BLAST_DB::splitQuery(int seq_size, int query_size, const char * subset) {
 
 
 int BLAST_DB::ScoreFinder(int i, int j,const char * seq1, const char * seq2) {
-    int array_size = 4;
-    int **score_matrix = new int *[array_size+1];
     int current_max = 0;
 
     int gap1 = score_matrix[i-1][j] - 1;
@@ -81,7 +79,7 @@ void BLAST_DB::print_score_matrix(int array_size, int** score_matrix){
 }
 
 int BLAST_DB::NW(const char * seq1, const char * seq2, int array_size){
-    int **score_matrix = new int *[array_size+1];
+    score_matrix = new int *[array_size+1];
 
     for (int k = 0; k < array_size + 1; k++){
         score_matrix[k] = new int[array_size + 1];
