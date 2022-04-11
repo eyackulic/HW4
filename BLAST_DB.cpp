@@ -15,8 +15,10 @@ BLAST_DB::BLAST_DB(const char *filename, int m, int seq_size) {
     cout <<"constructor ran"<<endl;
 }
 BLAST_DB::~BLAST_DB(){
-    //destructor -- most items in this hw were destroyed onsite
+
     cout << "destructor ran" << endl;
+//    delete hashtable;
+
 }
 
 void BLAST_DB::splitQuery(int seq_size, int query_size, const char * subset) {
@@ -53,9 +55,8 @@ void BLAST_DB::splitQuery(int seq_size, int query_size, const char * subset) {
     }
 
 
-int BLAST_DB::ScoreFinder(int i, int j,const char * seq1, const char * seq2, int array_size) {
+int BLAST_DB::ScoreFinder(int i, int j,const char * seq1, const char * seq2, int array_size, int ** score_matrix) {
 
-    int **score_matrix = new int *[array_size+1];
     int current_max = 0;
 
     int gap1 = score_matrix[i-1][j] - 1;
@@ -86,7 +87,7 @@ void BLAST_DB::print_score_matrix(int array_size, int** score_matrix){
 
 int BLAST_DB::NW(const char * seq1, const char * seq2, int seq_size){
     int array_size = seq_size;
-    int **score_matrix = new int *[array_size+1];
+    score_matrix = new int *[array_size+1];
 
     for (int k = 0; k < array_size + 1; k++){
         score_matrix[k] = new int[array_size + 1];
@@ -101,9 +102,11 @@ int BLAST_DB::NW(const char * seq1, const char * seq2, int seq_size){
 
     for(int i = 1; i < array_size + 1; i++){
         for (int j=1; j< array_size + 1 ; j++){
-            score_matrix[i][j] = ScoreFinder(i, j, seq1, seq2,array_size);
+            score_matrix[i][j] = ScoreFinder(i, j, seq1, seq2,array_size,score_matrix);
         }
     }
     print_score_matrix(array_size,score_matrix);
     return 0;
 }
+
+

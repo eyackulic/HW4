@@ -78,8 +78,8 @@ build CMakeFiles/HW4.dir/main.cpp.o: CXX_COMPILER__HW4_Debug /Users/ethanyackuli
   OBJECT_DIR = CMakeFiles/HW4.dir
   OBJECT_FILE_DIR = CMakeFiles/HW4.dir
 
-build CMakeFiles/HW4.dir/FASTAreadset_LL.cpp.o: CXX_COMPILER__HW4_Debug /Users/ethanyackulic/CLionProjects/HW4/FASTAreadset_LL.cpp || cmake_object_order_depends_target_HW4
-  DEP_FILE = CMakeFiles/HW4.dir/FASTAreadset_LL.cpp.o.d
+build CMakeFiles/HW4.dir/BLAST_DB.cpp.o: CXX_COMPILER__HW4_Debug /Users/ethanyackulic/CLionProjects/HW4/BLAST_DB.cpp || cmake_object_order_depends_target_HW4
+  DEP_FILE = CMakeFiles/HW4.dir/BLAST_DB.cpp.o.d
   FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -mmacosx-version-min=10.15 -std=gnu++17
   OBJECT_DIR = CMakeFiles/HW4.dir
   OBJECT_FILE_DIR = CMakeFiles/HW4.dir
@@ -90,8 +90,8 @@ build CMakeFiles/HW4.dir/FASTAreadset_HT.cpp.o: CXX_COMPILER__HW4_Debug /Users/e
   OBJECT_DIR = CMakeFiles/HW4.dir
   OBJECT_FILE_DIR = CMakeFiles/HW4.dir
 
-build CMakeFiles/HW4.dir/BLAST_DB.cpp.o: CXX_COMPILER__HW4_Debug /Users/ethanyackulic/CLionProjects/HW4/BLAST_DB.cpp || cmake_object_order_depends_target_HW4
-  DEP_FILE = CMakeFiles/HW4.dir/BLAST_DB.cpp.o.d
+build CMakeFiles/HW4.dir/FASTAreadset_LL.cpp.o: CXX_COMPILER__HW4_Debug /Users/ethanyackulic/CLionProjects/HW4/FASTAreadset_LL.cpp || cmake_object_order_depends_target_HW4
+  DEP_FILE = CMakeFiles/HW4.dir/FASTAreadset_LL.cpp.o.d
   FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -mmacosx-version-min=10.15 -std=gnu++17
   OBJECT_DIR = CMakeFiles/HW4.dir
   OBJECT_FILE_DIR = CMakeFiles/HW4.dir
@@ -104,7 +104,7 @@ build CMakeFiles/HW4.dir/BLAST_DB.cpp.o: CXX_COMPILER__HW4_Debug /Users/ethanyac
 #############################################
 # Link the executable HW4
 
-build HW4: CXX_EXECUTABLE_LINKER__HW4_Debug CMakeFiles/HW4.dir/main.cpp.o CMakeFiles/HW4.dir/FASTAreadset_LL.cpp.o CMakeFiles/HW4.dir/FASTAreadset_HT.cpp.o CMakeFiles/HW4.dir/BLAST_DB.cpp.o
+build HW4: CXX_EXECUTABLE_LINKER__HW4_Debug CMakeFiles/HW4.dir/main.cpp.o CMakeFiles/HW4.dir/BLAST_DB.cpp.o CMakeFiles/HW4.dir/FASTAreadset_HT.cpp.o CMakeFiles/HW4.dir/FASTAreadset_LL.cpp.o
   FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -mmacosx-version-min=10.15
   OBJECT_DIR = CMakeFiles/HW4.dir
   POST_BUILD = :
