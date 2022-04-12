@@ -48,6 +48,7 @@ public:
 
   //class methods
     void addNode(const char *input_seq, int location);
+    Node * removeLast();
     bool isEqual(const char * seq1, const char * seq2, int seq_size);
 
     //print function

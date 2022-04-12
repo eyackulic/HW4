@@ -6,102 +6,103 @@
 
 using namespace std;
 
-const char *seq1 = "ATGT";
-const char *seq2 = "AGCT";
-
-int array_size = 4;
-
-
-int ScoreFinder(int i, int j, int ** score_matrix) {
-    int current_max;
-    int gap1 = score_matrix[i-1][j] - 1;
-    int gap2 = score_matrix[i][j-1] - 1;
-
-    if (seq1[i-1] == seq2[j-1]) {
-        current_max = score_matrix[i-1][j-1] + 2;
-    }else{
-        current_max = score_matrix[i-1][j-1] -1;
-    }
-    if(gap1 >= gap2 && gap1 > current_max){
-        return gap1;
-    }
-    if(gap2 >= gap1 && gap2 > current_max){
-        return gap2;
-    }
-    return current_max;
-}
-void print_score_matrix(int** score_matrix){
-    for(int i = 0; i < array_size + 1; i++){
-        for (int j=0; j< array_size + 1 ; j++){
-            cout << score_matrix[i][j] << '\t';
-        }
-        cout << endl;
-    }
-}
-void print_codes(char * char1, char * char2, char * char_code){
-    for ( int i = 0; i < array_size;i++){
-        cout << char1[i] <<" ";
-    }
-    cout << endl;
-    for ( int i = 0; i < array_size;i++){
-        cout << char_code[i] <<" ";
-    }
-    cout << endl;
-    for ( int i = 0; i < array_size;i++){
-        cout << char2[i] <<" ";
-    }
-    cout << endl;
-}
-void debug(int ** score_matrix, int array_size){
-    int current_max;
-    int i = array_size;
-    int j = array_size;
-    char * char1;
-    char * char2;
-    char * char_code;
-    char1 = new char[array_size+1];
-    char2 = new char[array_size+1];
-    char_code = new char[array_size+1];
-    while(i > 0){
-        while ( j > 0){
-            int up = score_matrix[i-1][j];
-            int left = score_matrix[i][j-1];
-            int diag = score_matrix[i-1][j-1];
-            if(up >= left && up > diag){
-                current_max = up;
-                i = i-1;
-                j = j;
-                cout << "current_max is " << current_max << " going up" <<endl;
-                char2[i] = '-';
-                char2[j] = seq2[j];
-                char_code[i] = ' ';
-            } else if(left >= up && left > diag){
-                current_max = left;
-                j= j-1;
-                i = i;
-                cout << "current_max is " << current_max << " going left" <<endl;
-                char1[i] = seq1[i];
-                char2[j] = '-';
-                char_code[i] = ' ';
-            } else{
-                current_max = diag;
-                j= j-1;
-                i= i - 1;
-                cout << "current_max is " << current_max << " going diag" <<endl;
-                    if(seq1[i] == seq2[j]){
-                        char_code[i] = '|';
-                    }else{
-                        char_code[i] = 'X';
-                    }
-                char1[i] = seq1[i];
-                char2[j] = seq2[j];
-
-            }
-          //  cout << current_max << endl;
-        }
-    }
-    print_codes(char1,char2, char_code);
-}
+//const char *seq1 = "TAGT";
+//const char *seq2 = "AGCG";
+//
+//int array_size = 4;
+//
+//
+//int ScoreFinder(int i, int j, int ** score_matrix) {
+//    int current_max;
+//    int gap1 = score_matrix[i-1][j] - 1;
+//    int gap2 = score_matrix[i][j-1] - 1;
+//
+//    if (seq1[i-1] == seq2[j-1]) {
+//        current_max = score_matrix[i-1][j-1] + 2;
+//    }else{
+//        current_max = score_matrix[i-1][j-1] -1;
+//    }
+//    if(gap1 >= gap2 && gap1 > current_max){
+//        return gap1;
+//    }
+//    if(gap2 >= gap1 && gap2 > current_max){
+//        return gap2;
+//    }
+//    return current_max;
+//}
+//void print_score_matrix(int** score_matrix){
+//    for(int i = 0; i < array_size + 1; i++){
+//        for (int j=0; j< array_size + 1 ; j++){
+//            cout << score_matrix[i][j] << '\t';
+//        }
+//        cout << endl;
+//    }
+//}
+//void print_codes(char * char1, char * char2, char * char_code){
+//    for ( int i = 0; i < array_size+1;i++){
+//        cout << char1[i] <<" ";
+//    }
+//    cout << endl;
+//    for ( int i = 0; i < array_size+1;i++){
+//        cout << char_code[i] <<" ";
+//    }
+//    cout << endl;
+//    for ( int i = 0; i < array_size+1;i++){
+//        cout << char2[i] <<" ";
+//    }
+//    cout << endl;
+//}
+//void debug(int ** score_matrix, int array_size){
+//    int current_max;
+//    int i = array_size;
+//    int j = i;
+//    char * char1;
+//    char * char2;
+//    char * char_code;
+//    char1 = new char[array_size+1];
+//    char2 = new char[array_size+1];
+//    char_code = new char[array_size+1];
+//    while(i >= 0 && j >= 0){
+////        while ( j > 0){
+//            int up = score_matrix[i-1][j];
+//            int left = score_matrix[i][j-1];
+//            int diag = score_matrix[i-1][j-1];
+//           // char1[i] = ;
+//            if(up >= left && up > diag){
+//                current_max = up;
+//                i = i - 1;
+//                j = j;
+//                cout << "current_max is " << current_max << " going up" <<endl;
+//                char1[i] = '-';
+//                char2[j] = seq2[j];
+//                char_code[i] = '_';
+//            } else if(left >= up && left > diag){
+//                current_max = left;
+//                j= j - 1;
+//                i = i;
+//                cout << "current_max is " << current_max << " going left" <<endl;
+//                char1[i] = seq1[i];
+//                char2[j] = '-';
+//                char_code[i] = '_';
+//            } else{
+//                current_max = diag;
+//                j= j - 1;
+//                i= i - 1;
+//                cout << "current_max is " << current_max << " going diag" <<endl;
+//                    if(seq1[i] == seq2[j]){
+//                        char_code[i] = '|';
+//                    }else{
+//                        char_code[i] = 'X';
+//                    }
+//                char1[i+1] = seq1[i];
+//                char2[j+1] = seq2[j];
+//
+//   //         }
+//          //  cout << current_max << endl;
+//        }
+//    }
+//    print_codes(char1,char2, char_code);
+//}
 
 int NW(const char * seq1, const char * seq2, int array_size){
     int **score_matrix = new int *[array_size+1]; //
@@ -135,13 +136,37 @@ return 0;
 }
 
 int main(int argc, char ** argv) {
-    NW(seq1, seq2,array_size);
+//    time_t begin;
+//    time_t end;
+//    NW(seq1, seq2,array_size);
    // FASTAreadset_HT hashtable("/Users/ethanyackulic/CLionProjects/HW4/data/test2.fasta", 10, 4);
     //    BLAST_DB hashtable(argv[2], atoi(argv[3]), 11);
-  //  BLAST_DB blast();
- //  BLAST_DB blast("../data/test2.fasta", 10, 4);
-  //  blast.splitQuery(11,11,seq1);
- //   blast.NW(seq1,seq2,4);
+ //   BLAST_DB blast();
+   BLAST_DB blast("../data/test.fasta", 10000000, 11);
+//   blast.hashtable->print_hashtable();
+    blast.BLAST(1,11,50,0);
+    blast.BLAST(1,11,50,0.2);
+   //   blast.
+//    blast.hashtable->getSequences(11);
+//    blast.hashtable->findRandomGM16Mers(11,1000);
+//    time(&begin);
+//    blast.hashtable->print_genome(11);
+//    blast.hashtable->findMistakes(11,0.05);
+//    time(&end);
+//    cout << "time of random search : " << end-begin << " seconds" << endl;
+//    blast.hashtable->findAll(11);
+//    FASTAreadset_HT hashtable(argv[2], atoi(argv[3]), 16);
+//    time(&begin);
+//    hashtable.findRandom16Mers(16, 1000000);
+//    time(&end);
+//    cout << "time of random search : " << end - begin << " seconds" << endl;
+//    time(&begin);
+//    hashtable.findRandomGM16Mers(16, 1000000);
+//    time(&end);
+//    cout << "time of genome search : " << end - begin << " seconds" << endl;
+
+    //  blast.splitQuery(11,11,seq1);
+ //   blast.NW(seq1,seq2,12);
 //    blast.hashtable->print_hashtable();
 
 

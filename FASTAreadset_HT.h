@@ -10,7 +10,7 @@
 class FASTAreadset_HT {
 private:
     int hashtable_size;
-    int genome_index;
+
     int collisionCount;
     int frag_found_counter;
     FASTAreadset_LL * hash_table;

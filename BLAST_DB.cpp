@@ -21,9 +21,10 @@ BLAST_DB::~BLAST_DB(){
 
 }
 
-void BLAST_DB::splitQuery(int seq_size, int query_size, const char * subset) {
-    int g_index = hashtable->generateRandom(seq_size, query_size);
-    subset = hashtable->generateSequences(g_index, seq_size);
+const char * BLAST_DB::splitQuery(int seed_size, int query_size,int p) {
+   //
+    int g_index = hashtable->generateRandom(seed_size, query_size);
+   const char * rand_query = hashtable->generateFalseSequences(g_index, query_size,p);
     Node * search_result;
     int g_loc;
     char *queryMers = new char[query_size + 1];
@@ -33,26 +34,27 @@ void BLAST_DB::splitQuery(int seq_size, int query_size, const char * subset) {
         for (int j = 0; j < query_size; j++) {
             queryMers[i] = subset[i + j];
         }
-        queryMers[seq_size] = '\0';
-        search_result = hashtable->radixSearch(queryMers, seq_size, true);
-        if (search_result != nullptr){
-            g_loc = search_result->location;
-            query_stack.addNode(queryMers, i);
+
+        queryMers[seed_size] = '\0';
+        search_result = hashtable->radixSearch(queryMers, seed_size, true);
+        if (search_result != nullptr) {
+            query_queue->addNode(queryMers, i);
+        }
+    }
+    return rand_query;
+}
             // Needleman-Wunsch
 
-      char * seq1;
-      for (int k = 0; k < i; k++) {
-          seq1[k] = subset[k];
-      }
-      char * seq2;
-          for (int q = 0; q <i ; q++){
-              seq2[q] = hashtable->genome_array[seq_size-i+q];
-            }
+//      char * seq1;
+//      for (int k = 0; k < i; k++) {
+//          seq1[k] = subset[k];
+//      }
+//      char * seq2;
+//          for (int q = 0; q <i ; q++){
+//              seq2[q] = hashtable->genome_array[seed_size-i+q];
+//            }
+//
 
-        }
-        };
-       // (50-i+11)
-    }
 
 
 int BLAST_DB::ScoreFinder(int i, int j,const char * seq1, const char * seq2, int array_size, int ** score_matrix) {

@@ -436,7 +436,7 @@ void FASTAreadset_HT::findMistakes(int seq_size, float p){
         radixSearch(r_seq, seq_size);
         delete[] r_seq;
     }
-    cout << "total fragments found in hash table with 1% character error: " << frag_found_counter <<endl;
+    cout << "total fragments found in hash table with " << p*100 << "% character error: " << frag_found_counter <<endl;
 }
 
 

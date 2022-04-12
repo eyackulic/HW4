@@ -174,3 +174,29 @@ void FASTAreadset_LL::printLL() {
     }
 }
 
+Node * FASTAreadset_LL::removeLast() {
+    Node *current_ptr;
+    if (first != nullptr) {
+        if (first->next == nullptr) {
+            current_ptr = first;
+            first = nullptr;
+            last = nullptr;
+
+            return current_ptr;
+
+        } else {
+
+            current_ptr = first;
+            Node *temp_ptr = current_ptr->next;
+            while (temp_ptr->next != nullptr) {
+                temp_ptr = temp_ptr->next;
+                current_ptr = current_ptr->next;
+            }
+            current_ptr->next = nullptr;
+            last = current_ptr;
+
+            return temp_ptr;
+        }
+    }
+    return nullptr;
+}
