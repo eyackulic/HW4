@@ -140,7 +140,7 @@ return 0;
 
 int main(int argc, char ** argv) {
 
-//    if (strcmp(argv[1], "1a") == 0) {
+   if (strcmp(argv[1], "1a") == 0) {
         time_t begin;
         time_t end;
         // FASTAreadset_HT hashtable("/Users/ethanyackulic/CLionProjects/HW4/data/test2.fasta", 10, 4);
@@ -157,12 +157,12 @@ int main(int argc, char ** argv) {
         cout << "time of genome search :\t" << end - begin << " seconds" << endl;
         cout << "number of queries:\t" << 10000 << "\t error rate: \t" << 0 << endl;
         time(&begin);
-        blast.BLAST(100000, 11, 50, 100, 0);
+  //      blast.BLAST(100000, 11, 50, 100, 0);
         time(&end);
         cout << "time of genome search : " << end - begin << " seconds" << endl;
         cout << "number of queries:\t" << 100000 << "\t error rate: \t" << 0 << endl;
         time(&begin);
-        blast.BLAST(1000000, 11, 50, 100, 0);
+   //     blast.BLAST(1000000, 11, 50, 100, 0);
         time(&end);
         cout << "time of genome search : " << end - begin << " seconds" << endl;
         cout << "number of queries:\t" << 1000000 << "\t error rate: \t" << 0 << endl;
@@ -172,21 +172,30 @@ int main(int argc, char ** argv) {
         cout << "time of genome search : " << end - begin << " seconds" << endl;
         cout << "number of queries:\t" << 10000 << "\t error rate: \t" << 0.05 << endl;
         time(&begin);
-        blast.BLAST(100000, 11, 50, 100, 0.05);
+   //     blast.BLAST(100000, 11, 50, 100, 0.05);
         time(&end);
         cout << "time of genome search : " << end - begin << " seconds" << endl;
         cout << "number of queries:\t" << 100000 << "\t error rate: \t" << 0.05 << endl;
         time(&begin);
-        blast.BLAST(1000000, 11, 50, 100, 0.05);
+   //     blast.BLAST(1000000, 11, 50, 100, 0.05);
         time(&end);
         cout << "time of genome search : " << end - begin << " seconds" << endl;
         cout << "number of queries:\t" << 1000000 << "\t error rate: \t" << 0.05 << endl;
 
-        cout << "running readfile" << endl;
-        blast.readFile("data/sample_hw_small.fasta");
-        blast.BLASTfile(11, 50, 100);
-  //  }
-    return 0;
+    }
+   if (strcmp(argv[1], "1b") == 0) {
+       time_t begin;
+       time_t end;
+       // FASTAreadset_HT hashtable("/Users/ethanyackulic/CLionProjects/HW4/data/test2.fasta", 10, 4);
+       //    BLAST_DB hashtable(argv[2], atoi(argv[3]), 11);
+       //   BLAST_DB blast();
+       BLAST_DB blast(argv[2], 10000000, 11);
+       cout << "running readfile" << endl;
+       blast.readFile(argv[3]);
+       blast.BLASTfile(11, 50, 100);
+
+   }
+   return 0;
 
 }
 //
