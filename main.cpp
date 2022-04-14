@@ -6,12 +6,13 @@
 
 using namespace std;
 
+//
+////
+//int array_size = 4;
+////
 //const char *seq1 = "TAGT";
 //const char *seq2 = "AGCG";
-//
-//int array_size = 4;
-//
-//
+////
 //int ScoreFinder(int i, int j, int ** score_matrix) {
 //    int current_max;
 //    int gap1 = score_matrix[i-1][j] - 1;
@@ -52,57 +53,59 @@ using namespace std;
 //    }
 //    cout << endl;
 //}
-//void debug(int ** score_matrix, int array_size){
+//
+//
+//void debug(int ** score_matrix, int array_size) {
 //    int current_max;
 //    int i = array_size;
 //    int j = i;
-//    char * char1;
-//    char * char2;
-//    char * char_code;
-//    char1 = new char[array_size+1];
-//    char2 = new char[array_size+1];
-//    char_code = new char[array_size+1];
-//    while(i >= 0 && j >= 0){
-//        while ( j > 0){
-//            int up = score_matrix[i-1][j];
-//            int left = score_matrix[i][j-1];
-//            int diag = score_matrix[i-1][j-1];
-//           // char1[i] = ;
-//            if(up >= left && up > diag){
+//    char *char1;
+//    char *char2;
+//    char *char_code;
+//    char1 = new char[array_size + 1];
+//    char2 = new char[array_size + 1];
+//    char_code = new char[array_size + 1];
+//    while (i >= 0 && j >= 0) {
+//        while (j > 0) {
+//            int up = score_matrix[i - 1][j];
+//            int left = score_matrix[i][j - 1];
+//            int diag = score_matrix[i - 1][j - 1];
+//            // char1[i] = ;
+//            if (up >= left && up > diag) {
 //                current_max = up;
 //                i = i - 1;
 //                j = j;
-//                cout << "current_max is " << current_max << " going up" <<endl;
+//                cout << "current_max is " << current_max << " going up" << endl;
 //                char1[i] = '-';
 //                char2[j] = seq2[j];
 //                char_code[i] = '_';
-//            } else if(left >= up && left > diag){
+//            } else if (left >= up && left > diag) {
 //                current_max = left;
-//                j= j - 1;
+//                j = j - 1;
 //                i = i;
-//                cout << "current_max is " << current_max << " going left" <<endl;
+//                cout << "current_max is " << current_max << " going left" << endl;
 //                char1[i] = seq1[i];
 //                char2[j] = '-';
 //                char_code[i] = '_';
-//            } else{
+//            } else {
 //                current_max = diag;
-//                j= j - 1;
-//                i= i - 1;
-//                cout << "current_max is " << current_max << " going diag" <<endl;
-//                    if(seq1[i] == seq2[j]){
-//                        char_code[i] = '|';
-//                    }else{
-//                        char_code[i] = 'X';
-//                    }
-//                char1[i+1] = seq1[i];
-//                char2[j+1] = seq2[j];
+//                j = j - 1;
+//                i = i - 1;
+//                cout << "current_max is " << current_max << " going diag" << endl;
+//                if (seq1[i] == seq2[j]) {
+//                    char_code[i] = '|';
+//                } else {
+//                    char_code[i] = 'X';
+//                }
+//                char1[i + 1] = seq1[i];
+//                char2[j + 1] = seq2[j];
 //
-//   //         }
-//          //  cout << current_max << endl;
+//                //         }
+//                //  cout << current_max << endl;
+//            }
 //        }
+//        print_codes(char1, char2, char_code);
 //    }
-//    print_codes(char1,char2, char_code);
-//}
 
 int NW(const char * seq1, const char * seq2, int array_size){
     int **score_matrix = new int *[array_size+1]; //
@@ -136,27 +139,54 @@ return 0;
 }
 
 int main(int argc, char ** argv) {
-    time_t begin;
-    time_t end;
 
-   // FASTAreadset_HT hashtable("/Users/ethanyackulic/CLionProjects/HW4/data/test2.fasta", 10, 4);
-    //    BLAST_DB hashtable(argv[2], atoi(argv[3]), 11);
- //   BLAST_DB blast();
-   BLAST_DB blast("../data/test.fasta", 10000000, 11);
-  //  BLAST_DB blast2("../data/sample_hw_dataset.fa", 10000000, 11);
+//    if (strcmp(argv[1], "1a") == 0) {
+        time_t begin;
+        time_t end;
+        // FASTAreadset_HT hashtable("/Users/ethanyackulic/CLionProjects/HW4/data/test2.fasta", 10, 4);
+        //    BLAST_DB hashtable(argv[2], atoi(argv[3]), 11);
+        //   BLAST_DB blast();
+        BLAST_DB blast(argv[2], 10000000, 11);
+        //  BLAST_DB blast2("../data/sample_hw_dataset.fa", 10000000, 11);
 //   blast.hashtable->print_hashtable();
-  //  const char * rand_query = blast.splitQuery(11, 50, 0);
+        //  const char * rand_query = blast.splitQuery(11, 50, 0);
 //  const char * =
-    time(&begin);
+        time(&begin);
+        blast.BLAST(10000, 11, 50, 100, 0);
+        time(&end);
+        cout << "time of genome search :\t" << end - begin << " seconds" << endl;
+        cout << "number of queries:\t" << 10000 << "\t error rate: \t" << 0 << endl;
+        time(&begin);
+        blast.BLAST(100000, 11, 50, 100, 0);
+        time(&end);
+        cout << "time of genome search : " << end - begin << " seconds" << endl;
+        cout << "number of queries:\t" << 100000 << "\t error rate: \t" << 0 << endl;
+        time(&begin);
+        blast.BLAST(1000000, 11, 50, 100, 0);
+        time(&end);
+        cout << "time of genome search : " << end - begin << " seconds" << endl;
+        cout << "number of queries:\t" << 1000000 << "\t error rate: \t" << 0 << endl;
+        time(&begin);
+        blast.BLAST(10000, 11, 50, 100, 0.05);
+        time(&end);
+        cout << "time of genome search : " << end - begin << " seconds" << endl;
+        cout << "number of queries:\t" << 10000 << "\t error rate: \t" << 0.05 << endl;
+        time(&begin);
+        blast.BLAST(100000, 11, 50, 100, 0.05);
+        time(&end);
+        cout << "time of genome search : " << end - begin << " seconds" << endl;
+        cout << "number of queries:\t" << 100000 << "\t error rate: \t" << 0.05 << endl;
+        time(&begin);
+        blast.BLAST(1000000, 11, 50, 100, 0.05);
+        time(&end);
+        cout << "time of genome search : " << end - begin << " seconds" << endl;
+        cout << "number of queries:\t" << 1000000 << "\t error rate: \t" << 0.05 << endl;
 
-//    blast.BLAST(10,11,50,100,0.05);
-    time(&end);
-
-//    cout << "time of genome search : " << end - begin << " seconds" << endl;
-    cout << "running readfile" << endl;
-    blast.readFile("../data/sample_hw_small.fasta");
-    blast.BLASTfile(11,50,100);
-return 0;
+        cout << "running readfile" << endl;
+        blast.readFile("data/sample_hw_small.fasta");
+        blast.BLASTfile(11, 50, 100);
+  //  }
+    return 0;
 
 }
 //

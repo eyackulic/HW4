@@ -20,8 +20,6 @@ FASTAreadset_LL::FASTAreadset_LL(const char *filename, int seq_size) {
 
     ifstream input;        //create filestream to read the file
     input.open(filename);        //initialize the filestream by pointing it to the right file
-    char *temp_head;
-    char *temp_read;
     //initiate genome_array as null ptr
     genome_array = nullptr;
 //    while (input.good()) {

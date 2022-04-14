@@ -18,6 +18,7 @@ BLAST_DB::~BLAST_DB(){
 
     cout << "destructor ran" << endl;
 //    delete hashtable;
+//loop through query array and destroy
 
 }
 
