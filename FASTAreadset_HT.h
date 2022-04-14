@@ -42,7 +42,7 @@ public:
     void findRandomGM16Mers( int seq_size, int iterations);
     void findRandom16Mers( int seq_size, int iterations);
     char * generateRandomSequence(int seq_size);
-    float randomFloat();
+    double randomFloat();
     bool bernoulli_trial(float p);
     char random_char(char original);
     char * generateFalseSequences( int g_index, int seq_size, float p);

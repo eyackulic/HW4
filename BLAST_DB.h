@@ -17,6 +17,8 @@ private:
     FASTAreadset_LL * query_queue;
     int array_size =10;
     int ** score_matrix = nullptr;
+    char ** query_array;
+    int num_of_lines_read;
 public:
     char * query;
     FASTAreadset_HT * hashtable;
@@ -25,7 +27,7 @@ public:
     BLAST_DB(const char *filename, int m, int seq_size);
 
     ~BLAST_DB();
-    const char* splitQuery(int seed_size, int query_size, int p);
+    const char* splitQuery(int seed_size, int query_size, float p);
     int NW(const char * seq1,const char * seq2, int array_size);
     void print_score_matrix(int array_size, int** score_matrix);
     int ScoreFinder(int i, int j,const char * seq1, const char * seq2, int array_size,int **score_matrix);

@@ -21,7 +21,7 @@ BLAST_DB::~BLAST_DB(){
 
 }
 
-const char * BLAST_DB::splitQuery(int seed_size, int query_size,int p) {
+const char * BLAST_DB::splitQuery(int seed_size, int query_size,float p) {
    //
     int g_index = hashtable->generateRandom(seed_size, query_size);
    const char * rand_query = hashtable->generateFalseSequences(g_index, query_size,p);

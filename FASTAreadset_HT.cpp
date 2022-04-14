@@ -58,16 +58,21 @@ unsigned int FASTAreadset_HT::get_radix_value(const char *sequence, int seq_size
                 radix_value += 0;
                 break;
             case 'C':
-                radix_value += 1 * pow(4, seq_size - i - 1);
+                radix_value += 1 * pow(5, seq_size - i - 1);
                 break;
             case 'G':
-                radix_value += 2 * pow(4,seq_size-i - 1);
+                radix_value += 2 * pow(5,seq_size-i - 1);
                 break;
             case 'T':
-                radix_value += 3 * pow(4,seq_size-i - 1);
+                radix_value += 3 * pow(5,seq_size-i - 1);
+                break;
+            case 'N':
+                radix_value += 4 * pow(5,seq_size-i - 1);
                 break;
             default:
-                cout << "invalid sequence character" << endl;
+              //  cout << "" << endl;
+
+                  cout << "invalid sequence character: " << sequence << endl;
 
 //            case 'N':
 //                radix_value += 4 * pow(4,seq_size-i);
@@ -357,12 +362,13 @@ void FASTAreadset_HT::findRandom16Mers(int seq_size, int iterations){
 }
 
 
-float FASTAreadset_HT::randomFloat(){
+double FASTAreadset_HT::randomFloat(){
     //finds a random float value (i.e. random decimal between 0-1)
     //Function calls:
     //Function called in: bernoulli_trial; HT.cpp; line 344
-    float new_val;
-    new_val = (float)rand()/(float)RAND_MAX;
+    double new_val;
+
+    new_val = (double)rand()/(double)RAND_MAX;
     return new_val;
 }
 

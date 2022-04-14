@@ -63,7 +63,7 @@ using namespace std;
 //    char2 = new char[array_size+1];
 //    char_code = new char[array_size+1];
 //    while(i >= 0 && j >= 0){
-////        while ( j > 0){
+//        while ( j > 0){
 //            int up = score_matrix[i-1][j];
 //            int left = score_matrix[i][j-1];
 //            int diag = score_matrix[i-1][j-1];
@@ -136,41 +136,26 @@ return 0;
 }
 
 int main(int argc, char ** argv) {
-//    time_t begin;
-//    time_t end;
-//    NW(seq1, seq2,array_size);
+    time_t begin;
+    time_t end;
+
    // FASTAreadset_HT hashtable("/Users/ethanyackulic/CLionProjects/HW4/data/test2.fasta", 10, 4);
     //    BLAST_DB hashtable(argv[2], atoi(argv[3]), 11);
  //   BLAST_DB blast();
    BLAST_DB blast("../data/test.fasta", 10000000, 11);
+  //  BLAST_DB blast2("../data/sample_hw_dataset.fa", 10000000, 11);
 //   blast.hashtable->print_hashtable();
-    blast.BLAST(1,11,50,0);
-    blast.BLAST(1,11,50,0.2);
-   //   blast.
-//    blast.hashtable->getSequences(11);
-//    blast.hashtable->findRandomGM16Mers(11,1000);
-//    time(&begin);
-//    blast.hashtable->print_genome(11);
-//    blast.hashtable->findMistakes(11,0.05);
-//    time(&end);
-//    cout << "time of random search : " << end-begin << " seconds" << endl;
-//    blast.hashtable->findAll(11);
-//    FASTAreadset_HT hashtable(argv[2], atoi(argv[3]), 16);
-//    time(&begin);
-//    hashtable.findRandom16Mers(16, 1000000);
-//    time(&end);
-//    cout << "time of random search : " << end - begin << " seconds" << endl;
-//    time(&begin);
-//    hashtable.findRandomGM16Mers(16, 1000000);
-//    time(&end);
+  //  const char * rand_query = blast.splitQuery(11, 50, 0);
+//  const char * =
+    time(&begin);
+
+//    blast.BLAST(10,11,50,100,0.05);
+    time(&end);
+
 //    cout << "time of genome search : " << end - begin << " seconds" << endl;
-
-    //  blast.splitQuery(11,11,seq1);
- //   blast.NW(seq1,seq2,12);
-//    blast.hashtable->print_hashtable();
-
-
-
+    cout << "running readfile" << endl;
+    blast.readFile("../data/sample_hw_small.fasta");
+    blast.BLASTfile(11,50,100);
 return 0;
 
 }
