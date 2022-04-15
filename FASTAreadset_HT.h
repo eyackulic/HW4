@@ -21,6 +21,7 @@ private:
 
 public:
     char * genome_array;
+    int genome_size;
     FASTAreadset_HT();
     FASTAreadset_HT(const char *filename, int m, int seq_size);
     ~FASTAreadset_HT();

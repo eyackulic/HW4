@@ -33,7 +33,12 @@ public:
     int ScoreFinder(int i, int j,const char * seq1, const char * seq2, int array_size,int **score_matrix);
 
 
-        };
+    void BLAST(int number_of_queries, int seed_size, int query_size, int n, float p);
+    int getLength(const char *filename);
+    void readFile(const char * filename);
+    void queryBuilder(char * query,int query_size, int seed_size);
+    void BLASTfile(int seed_size, int query_size, int n);
+};
 
 
 #endif //HW4_BLAST_DB_H

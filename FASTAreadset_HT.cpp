@@ -132,7 +132,7 @@ void FASTAreadset_HT::singleArray(const char *filename) {
     genome_array = new char[6000000]; // should be big enough to hold it
     char temp_buffer[1000];
     char current_char;
-    genome_index = 0;
+    genome_size = 0;
 
 //skip first line
     input.getline(temp_buffer, 1000);
@@ -141,9 +141,9 @@ void FASTAreadset_HT::singleArray(const char *filename) {
         if (current_char == 'A' || current_char == 'G' || current_char == 'T' || current_char == 'C' ||
             current_char == 'N') {
             //fill array
-            genome_array[genome_index] = current_char;
+            genome_array[genome_size] = current_char;
             //increment count
-            genome_index++;
+            genome_size++;
         }
     }
 }
@@ -158,7 +158,7 @@ void FASTAreadset_HT::getSequences(int seq_size) {
     int end = seq_size;
     line = 0;
     //iterate through all genome entries
-    while(end <= genome_index){
+    while(end <= genome_size){
         int i = 0;
         char * new_seq = new char[seq_size+1];
         while (i < seq_size) {
@@ -181,7 +181,7 @@ void FASTAreadset_HT::print_genome(int seq_size) {
     int end = seq_size;
     int line = 0;
     //iterate through all genome entries
-    while (end <= genome_index) {
+    while (end <= genome_size) {
         int i = 0;
         char *new_seq = new char[seq_size + 1];
         while (i < seq_size) {
@@ -193,7 +193,7 @@ void FASTAreadset_HT::print_genome(int seq_size) {
         end += 1;
     }
     cout << "total lines: " << line << endl;
-    cout << "count: " << genome_index << endl;
+    cout << "count: " << genome_size << endl;
 
 }
 
@@ -351,7 +351,7 @@ void FASTAreadset_HT::findRandom16Mers(int seq_size, int iterations){
     //      generateRandomSequence; HT.cpp; line 285
     //      radixSearch; HT.cpp; line 208
     //Function called in:
-    genome_index = line;
+    genome_size = line;
     frag_found_counter = 0;
     for (int i=0; i <iterations; i++){
         char * r_seq = generateRandomSequence(seq_size);

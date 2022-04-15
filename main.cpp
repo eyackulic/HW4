@@ -107,17 +107,17 @@ using namespace std;
 //        print_codes(char1, char2, char_code);
 //    }
 
-int NW(const char * seq1, const char * seq2, int array_size){
-    int **score_matrix = new int *[array_size+1]; //
-    for (int k = 0; k < array_size + 1; k++){
-        score_matrix[k] = new int[array_size + 1];
-    }
-
-    for (int i=0; i< array_size + 1 ; i++){
-        score_matrix[i][0] = 0 - i;
-        score_matrix[0][i] = 0 - i;
-    }
-
+//int NW(const char * seq1, const char * seq2, int array_size){
+//    int **score_matrix = new int *[array_size+1]; //
+//    for (int k = 0; k < array_size + 1; k++){
+//        score_matrix[k] = new int[array_size + 1];
+//    }
+//
+//    for (int i=0; i< array_size + 1 ; i++){
+//        score_matrix[i][0] = 0 - i;
+//        score_matrix[0][i] = 0 - i;
+//    }
+//
 //    for (int i=0; i< array_size + 1 ; i++){
 //        score_matrix[i][0] = 0 - i;
 //    }
@@ -125,18 +125,19 @@ int NW(const char * seq1, const char * seq2, int array_size){
 //    for (int j=0; j< array_size + 1 ; j++){
 //        score_matrix[0][j] = 0 - j;
 //    }
-
-    for(int i = 1; i < array_size + 1; i++){
-        for (int j=1; j< array_size + 1 ; j++){
-            score_matrix[i][j] = ScoreFinder(i, j, score_matrix);
-        }
-    }
-
-    print_score_matrix(score_matrix);
-    debug(score_matrix,array_size);
-
-return 0;
-}
+//
+//    for (int i = 1; i < array_size + 1; i++) {
+//        for (int j = 1; j < array_size + 1; j++) {
+//            score_matrix[i][j] = ScoreFinder(i, j, score_matrix);
+//        }
+//    }
+//
+//}
+//    print_score_matrix(score_matrix);
+//    debug(score_matrix, array_size);
+//
+//return 0;
+//}
 
 int main(int argc, char ** argv) {
 
