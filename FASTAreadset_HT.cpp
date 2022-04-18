@@ -71,8 +71,8 @@ unsigned int FASTAreadset_HT::get_radix_value(const char *sequence, int seq_size
                 break;
             default:
               //  cout << "" << endl;
-
-                  cout << "invalid sequence character: " << sequence << endl;
+                    radix_value +=0;
+//                  cout << "invalid sequence character: " << sequence << endl;
 
 //            case 'N':
 //                radix_value += 4 * pow(4,seq_size-i);
@@ -202,8 +202,9 @@ void FASTAreadset_HT::print_hashtable(){
     // Function calls:
     //              printLL; LL.cpp; line 159
     //Function called in:
-
-    for (int i =0; i < hashtable_size; i++) {
+cout <<"hashtable size: \t" <<hashtable_size <<endl;
+ //   for (int i =0; i < hashtable_size; i++) {
+    for (int i =0; i < 15; i++) {
         cout << "index value " << i << endl;
         hash_table[i].printLL();
         cout << endl;

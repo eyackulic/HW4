@@ -12,10 +12,17 @@
 #include "FASTAreadset_HT.h"
 #include "FASTAreadset_LL.h"
 
+struct prettyAlign{
+    char * seq1;
+    char * seq2;
+    char * seq3;
+};
+
+
+
 class BLAST_DB {
 private:
     FASTAreadset_LL * query_queue;
-    int array_size =10;
     int ** score_matrix = nullptr;
     char ** query_array;
     int num_of_lines_read;
@@ -35,9 +42,10 @@ public:
 
     void BLAST(int number_of_queries, int seed_size, int query_size, int n, float p);
     int getLength(const char *filename);
-    void readFile(const char * filename);
+    void readFile(const char * filename, int lines_to_read);
     void queryBuilder(char * query,int query_size, int seed_size);
     void BLASTfile(int seed_size, int query_size, int n);
+    void BLASTfile(char * filename, int lines_to_read, int seed_size, int query_size, int n);
 };
 
 

@@ -114,6 +114,8 @@ int BLAST_DB::NW(const char * seq1, const char * seq2, int seq_size){
 //    print_score_matrix(array_size,score_matrix);
     return score_matrix[array_size][array_size];
 }
+// UPDATE TRACeback with score matrix increments  (sampe two loops)
+//second function uses traceback matrix to rebuild sequence locations
 
 
 void BLAST_DB::BLAST(int number_of_queries,int seed_size, int query_size, int n, float p) {
@@ -139,10 +141,10 @@ void BLAST_DB::BLAST(int number_of_queries,int seed_size, int query_size, int n,
     //read in queries from file
     //DO this in main first
     // run BLAST
-    int max_score = 0;
+    int max_score;
     for (int i = 0; i < number_of_queries; i++) {
 //updating query_queue with random queries from genome;
-
+        max_score = 0;
         const char *rand_query = splitQuery(seed_size, query_size, p);
 
 
@@ -208,9 +210,6 @@ void BLAST_DB::BLAST(int number_of_queries,int seed_size, int query_size, int n,
                     }
                     query_before_sequence[before_seed_length] = '\0';
                     genome_before_sequence[before_seed_length] = '\0';
-
-//                        cout << "query_before:\t" << query_before_sequence << endl;
-//                        cout << "genome_before:\t" << genome_before_sequence << endl;
                     score_before = NW(query_before_sequence, genome_before_sequence, before_seed_length);
 
                 } else if (seed_loc > 0 && seed_loc < 39 && genome_before_start >= 0) {
@@ -224,14 +223,6 @@ void BLAST_DB::BLAST(int number_of_queries,int seed_size, int query_size, int n,
                         query_after_sequence[i] = rand_query[query_after_start + i];
                         genome_after_sequence[i] = hashtable->genome_array[genome_after_start + i];
                     }
-
-//                    cout << "Before and After" << endl;
-//                    cout << "before_len:\t" << before_seed_length << '\t' << "after_seed_length:\t" << after_seed_length
-//                         << endl;
-//                    cout << "query_before:\t" << query_before_sequence << endl;
-//                    cout << "genome_before:\t" << genome_before_sequence << endl;
-//                    cout << "query_after:\t" << query_after_sequence << endl;
-//                    cout << "genome_after:\t" << genome_after_sequence << endl;
 
                     query_before_sequence[before_seed_length] = '\0';
                     genome_before_sequence[before_seed_length] = '\0';
@@ -280,8 +271,28 @@ void BLAST_DB::BLAST(int number_of_queries,int seed_size, int query_size, int n,
 
 
 
-void BLAST_DB::BLASTfile(int seed_size, int query_size, int n) {
+void BLAST_DB::BLASTfile(char * filename, int lines_to_read,int seed_size, int query_size, int n) {
 // n is match success rate for saving entry (0-100%)
+
+    ifstream input;        //create filestream to read the file
+    input.open(filename);        //initialize the filestream by pointing it to the right file
+    char *temp_head = new char[1000];
+//    char *temp_read = new char[1000];
+    if (lines_to_read == 0) {
+        num_of_lines_read = getLength(filename);
+    } else{
+        num_of_lines_read = lines_to_read;
+    }
+//    cout << "Reading " << num_of_lines_read << " lines" << endl;
+    query_array = new char*[num_of_lines_read];
+
+    for (int i = 0; i < num_of_lines_read; i++) {
+        query_array[i] = new char[51];
+        input >> temp_head;    //read in the header line
+        input >> query_array[i];//read in the read line
+        //    cout << "reading in line: " << i << '\t' << query_array[i] << endl;
+
+    }
 
     int score_before = 0;
     int score_after = 0;
@@ -315,10 +326,10 @@ void BLAST_DB::BLASTfile(int seed_size, int query_size, int n) {
         Node *current_seed;
         Node *current_genome_node;
         current_seed = query_queue->removeLast();
-
+//cout << "current seed: \t" << current_seed->sequence << endl;
 
         while (current_seed != nullptr) {
-            //     cout << current_seed->sequence << '\t' << current_seed->location << endl;
+        //    cout << current_seed->sequence << '\t' << current_seed->location << endl;
 
             current_genome_node = hashtable->radixSearch(current_seed->sequence, seed_size, true);
             seed_loc = current_seed->location;
@@ -430,11 +441,9 @@ void BLAST_DB::BLASTfile(int seed_size, int query_size, int n) {
 
             current_seed = query_queue->removeLast();
         } //query_que while loop
-
+cout << "max score is: \t" <<max_score << endl;
         if (max_score >= n) {
             count++;
-            cout << rand_query << endl;
-
         }
     }
     cout << "Count is: \t" << count <<endl;
@@ -461,21 +470,25 @@ int BLAST_DB::getLength(const char *filename) {
     return length;
 }
 
-void BLAST_DB::readFile(const char * filename) {
+void BLAST_DB::readFile(const char * filename, int lines_to_read) {
 
     ifstream input;        //create filestream to read the file
     input.open(filename);        //initialize the filestream by pointing it to the right file
     char *temp_head = new char[1000];
 //    char *temp_read = new char[1000];
-    num_of_lines_read = getLength(filename);
-
+    if (lines_to_read == 0) {
+        num_of_lines_read = getLength(filename);
+    } else{
+        num_of_lines_read = lines_to_read;
+    }
+//    cout << "Reading " << num_of_lines_read << " lines" << endl;
     query_array = new char*[num_of_lines_read];
 
     for (int i = 0; i < num_of_lines_read; i++) {
         query_array[i] = new char[51];
         input >> temp_head;    //read in the header line
         input >> query_array[i];//read in the read line
-//        cout << "reading in line: " << i << '\t' << query_array[i] << endl;
+    //    cout << "reading in line: " << i << '\t' << query_array[i] << endl;
 
     }
 }
@@ -483,17 +496,21 @@ void BLAST_DB::readFile(const char * filename) {
 
 
 void BLAST_DB::queryBuilder(char * query,int query_size, int seed_size){
+    int g_index = hashtable->generateRandom(seed_size, query_size);
+    hashtable->generateSequences(g_index,query_size);
+
     for (int i = 0; i < query_size - seed_size + 1; i++) {
         char *queryMers = new char[query_size + 1];
         for (int j = 0; j < seed_size; j++) {
             queryMers[j] = query[i + j];
     }
-
     queryMers[seed_size] = '\0';
     Node * search_result = hashtable->radixSearch(queryMers, seed_size, true);
     if (search_result != nullptr) {
+     //   cout << queryMers<<endl;
         query_queue->addNode(queryMers, i);
     }
 }
 
 }
+

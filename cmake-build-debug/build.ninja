@@ -96,6 +96,12 @@ build CMakeFiles/HW4_main.dir/FASTAreadset_LL.cpp.o: CXX_COMPILER__HW4_main_Debu
   OBJECT_DIR = CMakeFiles/HW4_main.dir
   OBJECT_FILE_DIR = CMakeFiles/HW4_main.dir
 
+build CMakeFiles/HW4_main.dir/test.cpp.o: CXX_COMPILER__HW4_main_Debug /Users/ethanyackulic/CLionProjects/HW4/test.cpp || cmake_object_order_depends_target_HW4_main
+  DEP_FILE = CMakeFiles/HW4_main.dir/test.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -mmacosx-version-min=10.15 -std=gnu++17
+  OBJECT_DIR = CMakeFiles/HW4_main.dir
+  OBJECT_FILE_DIR = CMakeFiles/HW4_main.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target HW4_main
@@ -104,7 +110,7 @@ build CMakeFiles/HW4_main.dir/FASTAreadset_LL.cpp.o: CXX_COMPILER__HW4_main_Debu
 #############################################
 # Link the executable HW4_main
 
-build HW4_main: CXX_EXECUTABLE_LINKER__HW4_main_Debug CMakeFiles/HW4_main.dir/main.cpp.o CMakeFiles/HW4_main.dir/BLAST_DB.cpp.o CMakeFiles/HW4_main.dir/FASTAreadset_HT.cpp.o CMakeFiles/HW4_main.dir/FASTAreadset_LL.cpp.o
+build HW4_main: CXX_EXECUTABLE_LINKER__HW4_main_Debug CMakeFiles/HW4_main.dir/main.cpp.o CMakeFiles/HW4_main.dir/BLAST_DB.cpp.o CMakeFiles/HW4_main.dir/FASTAreadset_HT.cpp.o CMakeFiles/HW4_main.dir/FASTAreadset_LL.cpp.o CMakeFiles/HW4_main.dir/test.cpp.o
   FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -mmacosx-version-min=10.15
   OBJECT_DIR = CMakeFiles/HW4_main.dir
   POST_BUILD = :
