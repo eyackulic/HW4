@@ -290,9 +290,9 @@ void BLAST_DB::BLASTfile(char * filename, int lines_to_read,int seed_size, int q
         query_array[i] = new char[51];
         input >> temp_head;    //read in the header line
         input >> query_array[i];//read in the read line
-        //    cout << "reading in line: " << i << '\t' << query_array[i] << endl;
 
     }
+    cout << "reading in line: " << 3 << '\t' << query_array[3] << endl;
 
     int score_before = 0;
     int score_after = 0;
@@ -325,6 +325,7 @@ void BLAST_DB::BLASTfile(char * filename, int lines_to_read,int seed_size, int q
 
         Node *current_seed;
         Node *current_genome_node;
+     //   query_queue->printLL();
         current_seed = query_queue->removeLast();
 //cout << "current seed: \t" << current_seed->sequence << endl;
 
@@ -441,7 +442,7 @@ void BLAST_DB::BLASTfile(char * filename, int lines_to_read,int seed_size, int q
 
             current_seed = query_queue->removeLast();
         } //query_que while loop
-cout << "max score is: \t" <<max_score << endl;
+//cout << "max score is: \t" <<max_score << endl;
         if (max_score >= n) {
             count++;
         }
@@ -514,3 +515,167 @@ void BLAST_DB::queryBuilder(char * query,int query_size, int seed_size){
 
 }
 
+
+
+
+
+
+void BLAST_DB::BLASTfile(int seed_size, int query_size, int n) {
+// n is match success rate for saving entry (0-100%)
+
+    int score_before = 0;
+    int score_after = 0;
+    int total_score = 0;
+    int count = 0;
+    int seed_loc;
+    int genome_loc;
+
+    int query_before_start;
+    int query_after_start;
+    int query_after_end;
+    int genome_before_start;
+    int genome_after_start;
+
+
+    int before_seed_length;
+    int after_seed_length;
+
+    //read in queries from file
+    //DO this in main first
+    // run BLAST
+    int max_score;
+    for (int i = 0; i < num_of_lines_read; i++) {
+        max_score = 0;
+//updating query_queue with random queries from genome;
+
+        const char * rand_query = query_array[i];
+        queryBuilder(query_array[i],50,11);
+
+
+        Node *current_seed;
+        Node *current_genome_node;
+        //   query_queue->printLL();
+        current_seed = query_queue->removeLast();
+//cout << "current seed: \t" << current_seed->sequence << endl;
+
+        while (current_seed != nullptr) {
+            //    cout << current_seed->sequence << '\t' << current_seed->location << endl;
+
+            current_genome_node = hashtable->radixSearch(current_seed->sequence, seed_size, true);
+            seed_loc = current_seed->location;
+
+            query_before_start = 0;
+            //    query_before_end = seed_loc;
+            query_after_start = seed_loc + seed_size;
+            query_after_end = query_size;
+
+
+            before_seed_length = seed_loc;
+            after_seed_length = query_after_end - query_after_start;
+
+            char *query_before_sequence = new char[before_seed_length + 1];
+            char *query_after_sequence = new char[after_seed_length + 1];
+            char *genome_before_sequence = new char[before_seed_length + 1];
+            char *genome_after_sequence = new char[after_seed_length + 1];
+
+            while (current_genome_node != nullptr) {
+
+                genome_loc = current_genome_node->location;
+
+                genome_before_start = genome_loc - seed_loc;
+                //        genome_before_end = genome_loc;
+                genome_after_start = genome_loc + seed_size;
+                //         genome_after_end = genome_loc + query_size - seed_size;
+
+                if (seed_loc == 0 && genome_before_start >= 0) {
+                    for (int i = 0; i < after_seed_length; i++) {
+//                        cout << "After Only" << endl;
+//                        cout << "before_len:\t" << before_seed_length << '\t' << "after_seed_length:\t"
+//                             << after_seed_length << endl;
+                        query_after_sequence[i] = rand_query[query_after_start + i];
+                        genome_after_sequence[i] = hashtable->genome_array[genome_after_start + i];
+
+
+                    }
+                    query_after_sequence[after_seed_length] = '\0';
+                    genome_after_sequence[after_seed_length] = '\0';
+//                    cout << "query_after:\t" << query_after_sequence << endl;
+//                    cout << "genome_after:\t" << genome_after_sequence << endl;
+                    score_after = NW(query_after_sequence, genome_after_sequence, after_seed_length);
+
+                } else if (seed_loc == 39 && genome_before_start >= 0) {
+                    for (int i = 0; i < before_seed_length; i++) {
+//                            cout << "Before Only" << endl;
+//                            cout << "before_len:\t" << before_seed_length << '\t' << "after_seed_length:\t"
+//                                 << after_seed_length << endl;
+                        query_before_sequence[i] = rand_query[query_before_start + i];
+                        genome_before_sequence[i] = hashtable->genome_array[genome_before_start + i];
+
+
+                    }
+                    query_before_sequence[before_seed_length] = '\0';
+                    genome_before_sequence[before_seed_length] = '\0';
+
+//                        cout << "query_before:\t" << query_before_sequence << endl;
+//                        cout << "genome_before:\t" << genome_before_sequence << endl;
+                    score_before = NW(query_before_sequence, genome_before_sequence, before_seed_length);
+
+                } else if (seed_loc > 0 && seed_loc < 39 && genome_before_start >= 0) {
+
+                    for (int i = 0; i < before_seed_length; i++) {
+                        query_before_sequence[i] = rand_query[i];
+                        genome_before_sequence[i] = hashtable->genome_array[genome_before_start + i];
+                    }
+
+                    for (int i = 0; i < after_seed_length - 1; i++) {
+                        query_after_sequence[i] = rand_query[query_after_start + i];
+                        genome_after_sequence[i] = hashtable->genome_array[genome_after_start + i];
+                    }
+
+//                    cout << "Before and After" << endl;
+//                    cout << "before_len:\t" << before_seed_length << '\t' << "after_seed_length:\t" << after_seed_length
+//                         << endl;
+//                    cout << "query_before:\t" << query_before_sequence << endl;
+//                    cout << "genome_before:\t" << genome_before_sequence << endl;
+//                    cout << "query_after:\t" << query_after_sequence << endl;
+//                    cout << "genome_after:\t" << genome_after_sequence << endl;
+
+                    query_before_sequence[before_seed_length] = '\0';
+                    genome_before_sequence[before_seed_length] = '\0';
+
+                    query_after_sequence[after_seed_length] = '\0';
+                    genome_after_sequence[after_seed_length] = '\0';
+
+                    score_before = NW(query_before_sequence, genome_before_sequence, before_seed_length);
+                    score_after = NW(query_after_sequence, genome_after_sequence, after_seed_length);
+
+                    //removing seed
+
+                }
+
+                total_score = score_before + score_after + 22;
+                if (total_score > max_score){
+                    max_score = total_score;
+                }
+                //      cout << "score_before:\t" << score_before << '\t' << "score_after:\t" << score_after << '\t'
+                //         << "Total score is:\t" << total_score<< endl;
+
+                score_after = 0;
+                score_before = 0;
+                //       total_score = 0;
+
+                current_genome_node = current_genome_node->next;
+            } // search node while loop
+            Node * temp = current_seed;
+            delete[] temp->sequence;
+
+            current_seed = query_queue->removeLast();
+        } //query_que while loop
+//cout << "max score is: \t" <<max_score << endl;
+        if (max_score >= n) {
+            count++;
+        }
+    }
+    cout << "Count is: \t" << count <<endl;
+
+}

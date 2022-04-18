@@ -21,7 +21,7 @@ int main(int argc, char ** argv) {
        BLAST_DB blast(argv[2], 10000000, 11);
 
        time(&begin);
-       int q = 1000000;
+       int q = 100000;
        float p = 0.05;
        blast.BLAST(q, 11, 50, 100,  p);
        time(&end);
@@ -32,10 +32,12 @@ int main(int argc, char ** argv) {
    //    time_t begin;
    //    time_t end;
        BLAST_DB blast(argv[2], 10000000, 11);
-       cout << "running readfile" << endl;
-     //  blast.readFile(argv[3],100);
-       blast.BLASTfile(argv[3],100,11, 50, 10);
-blast.hashtable->print_hashtable();
+       blast.hashtable->print_hashtable();
+       cout << "running readfile: "<< argv[2] << endl;
+       blast.readFile(argv[3],100);
+       blast.BLASTfile(11, 50, 10);
+      // blast.BLASTfile(argv[3],100,11, 50, 10);
+
    }
    return 0;
 
